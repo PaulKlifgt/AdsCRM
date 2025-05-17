@@ -1,0 +1,21 @@
+{% extends 'ads/base.html' %}
+
+{% block content %}
+    <h1>Регистрация</h1>
+    <hr>
+    {% if form.errors %}
+        {{form.errors.error}}
+    {% endif %}
+    <form action="{% url 'register' %}" method="post">
+        {{form.username.label}}
+        <br>
+        {{form.username}}
+        <br><br>
+        {{form.password1.label}}
+        <br>
+        {{form.password1}}
+        {% csrf_token%}
+        <br><br>
+        <button class="btn btn-success" type="submit">Далее</button>
+    </form>
+{% endblock content %}

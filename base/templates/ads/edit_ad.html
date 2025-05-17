@@ -1,0 +1,39 @@
+{% extends 'ads/base.html' %}
+{% block content %}
+    <h1>Редактирование обьявление</h1>
+<hr>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<form onsubmit="event.target.onsubmit = (e) => e.preventDefault()" action="{% url 'edit_ad' ad_id=ad.id %}" id="send" method="post" autocomplete="off">
+    {% csrf_token %}
+    {{form.title.label}}: {{form.title}} <br>
+    {{form.description.label}}: {{form.description}} <br>
+    {{form.category.label}}: {{form.category}} <br>
+    {{form.condition.label}}: {{form.condition}} <br>
+    <button class="btn btn-success" type="submit">Изменить</button>
+</form>
+<script>
+    $(document).on('submit', '#send', function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'/ads/edit_ad/{{ad.id}}/',
+            data:{
+                title:$('#id_title').val(),
+                description:$('#id_description').val(),
+                category:$('#id_category').val(),
+                condition:$('#id_condition').val(),
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'post'
+            },
+            success:function(json){
+                window.location.href = 'http://127.0.0.1:8000/ads/';
+                alert('Обьявление измненено!');
+            },
+            error:function(xhr,errmsg,err) {
+            alert("Ошибка: " + xhr.responseText);
+            }
+        });
+    });
+</script>
+
+{% endblock content %}

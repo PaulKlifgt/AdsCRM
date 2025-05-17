@@ -1,0 +1,10 @@
+{% if ads %}
+    {% for ad in ads %}
+        <div>
+            <h3>{{ad}}</h3>
+        </div> 
+    {% endfor %}
+{% else %}
+    <h3>Объявлений нет!</h3>
+{% endif %}
+

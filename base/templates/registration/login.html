@@ -1,0 +1,24 @@
+{% extends 'ads/base.html' %}
+
+{% block content %}
+    <h1>Вход</h1>
+    <hr>
+
+    {% if form.errors %}
+        {{form.errors.error}}
+    {% endif %}
+    
+
+    <form action="{% url 'login' %}" method="post">
+        {{form.username.label}}
+        <br>
+        {{form.username}}
+        <br><br>
+        {{form.password.label}}
+        <br>
+        {{form.password}}
+        {% csrf_token%}
+        <br><br>
+        <button class="btn btn-success" type="submit">Войти</button>
+    </form>
+{% endblock content %}

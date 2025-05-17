@@ -1,0 +1,35 @@
+{% extends 'ads/base.html' %}
+{% block content %}
+    <h1>Предложение обмена</h1>
+<hr>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<form onsubmit="event.target.onsubmit = (e) => e.preventDefault()" action="{% url 'create_prop' ad_r_id=ad_r.id %}" id="send" method="post" autocomplete="off">
+    {% csrf_token %}
+    {{form.ad_sender.label}}: {{form.ad_sender}} <br>
+    {{form.comment.label}}: {{form.comment}} <br>
+    <button class="btn btn-success" type="submit">Отправить</button>
+</form>
+<script>
+    $(document).on('submit', '#send', function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'/ads/create_prop/{{ad_r.id}}/',
+            data:{
+                ad_sender:$('#id_ad_sender').val(),
+                comment:$('#id_comment').val(),
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'post'
+            },
+            success:function(json){
+                window.location.href = 'http://127.0.0.1:8000/ads/';
+                alert('Обьявление опубликовано!');
+            },
+            error:function(xhr,errmsg,err) {
+            alert("Ошибка: " + xhr.responseText);
+            }
+        });
+    });
+</script>
+
+{% endblock content %}
