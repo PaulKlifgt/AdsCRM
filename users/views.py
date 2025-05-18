@@ -24,7 +24,7 @@ class Register(View):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('index')
+            return redirect('/ads/get_ads/1/')
         context = {
             'form': form
         }

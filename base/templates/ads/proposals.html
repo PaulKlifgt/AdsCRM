@@ -2,11 +2,15 @@
 
 {% block content %}
 
-    {% if ads %}
+    {% if props %}
         {% for prop in props %}
-            {% include 'ads/_prop.html' %}
+        <div style="border: 1px solid black; padding: 1vw; border-radius: 1vw;">
+            <h3>Обмен "<b>{{prop.ad_sender.title}}</b>" на "<b>{{prop.ad_receiver.title}}</b>"</h3>
+            <h5>{{prop.status}}</h5>
+        </div>
         {% endfor %}
-    {% elif props_sended or props_received %}
+    {% endif %}
+    {% if props_sended  %}
     <h2>Ваши предложения</h2>
         {% for prop in props_sended %}
             <div style="border: 1px solid black; padding: 1vw; border-radius: 1vw;">
@@ -17,6 +21,8 @@
             {% include 'ads/_prop.html' %}
         {% endfor %}
     <br>
+    {% endif %}
+    {% if props_received %}
     <h2>Запрашиваемые предложения</h2>
         {% for prop in props_received %}
             <div style="border: 1px solid black; padding: 1vw; border-radius: 1vw;">
@@ -32,7 +38,8 @@
             </div>
             <br>
         {% endfor %}
-    {% else %}
+    {% endif %}
+    {% if not props and not props_sended and not props_received %}
     <h3>Предложения не найдены!</h3>
     {% endif %}
     
