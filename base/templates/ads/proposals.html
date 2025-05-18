@@ -1,0 +1,39 @@
+{% extends 'ads/base.html' %}
+
+{% block content %}
+
+    {% if ads %}
+        {% for prop in props %}
+            {% include 'ads/_prop.html' %}
+        {% endfor %}
+    {% elif props_sended or props_received %}
+    <h2>Ваши предложения</h2>
+        {% for prop in props_sended %}
+            <div style="border: 1px solid black; padding: 1vw; border-radius: 1vw;">
+                <h3>Обмен "<b>{{prop.ad_sender.title}}</b>" на "<b>{{prop.ad_receiver.title}}</b>"</h3>
+                <h5>{{prop.status}}</h5>
+            </div>
+            <br>
+            {% include 'ads/_prop.html' %}
+        {% endfor %}
+    <br>
+    <h2>Запрашиваемые предложения</h2>
+        {% for prop in props_received %}
+            <div style="border: 1px solid black; padding: 1vw; border-radius: 1vw;">
+                <h3>Обмен "<b>{{prop.ad_sender.title}}</b>" на "<b>{{prop.ad_receiver.title}}</b>"</h3>
+                {% if prop.status == 'ожидает' %}
+                    <button class="btn btn-success" id="accept{{prop.id}}">Принять</button> <button class="btn btn-danger" id="reject{{prop.id}}">Отклонить</button>
+                {% elif prop.status == 'принято' %}
+                    <h4>Вы приняли это предложение</h4>
+                {% else %}
+                    <h4>Вы отклонили это предложение</h4>
+                {% endif %}
+                {% include 'ads/_prop.html' %}
+            </div>
+            <br>
+        {% endfor %}
+    {% else %}
+    <h3>Предложения не найдены!</h3>
+    {% endif %}
+    
+{% endblock content %}

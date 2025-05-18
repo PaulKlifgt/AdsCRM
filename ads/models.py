@@ -7,21 +7,22 @@ from users.models import User
 
 # Create your models here.
 class Ad(models.Model):
-    class CategoryChoices(models.TextChoices):
-        household_items = 'Вещи для дома'
-        clothes = 'Одежда'
-        transport = 'Транспорт'
+    category_choices = {
+        'вещи для дома': 'вещи для дома',
+        'одежда': 'одежда',
+        'транспорт': 'транспорт',
+    }
 
-    class ConditionChoices(models.TextChoices):
-        new = 'новый'
-        used = 'б/у'
+    condition_choices = {
+        'новый': 'новый',
+        'б/у': 'б/у',
+    }
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=500)
-    image_url = models.FilePathField(path=MEDIA_ROOT+'images/')
-    category = models.CharField(choices=CategoryChoices)
-    condition = models.CharField(choices=ConditionChoices)
+    category = models.CharField(choices=category_choices)
+    condition = models.CharField(choices=condition_choices)
     created_at = models.DateTimeField(auto_now_add=True)
 
 

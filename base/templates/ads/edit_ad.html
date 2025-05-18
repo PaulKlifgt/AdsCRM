@@ -1,6 +1,6 @@
 {% extends 'ads/base.html' %}
 {% block content %}
-    <h1>Редактирование обьявление</h1>
+    <h1>Редактирование обьявление <button id="delete" class="btn btn-danger">Удалить объявление</button></h1> 
 <hr>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <form onsubmit="event.target.onsubmit = (e) => e.preventDefault()" action="{% url 'edit_ad' ad_id=ad.id %}" id="send" method="post" autocomplete="off">
@@ -26,11 +26,29 @@
                 action: 'post'
             },
             success:function(json){
-                window.location.href = 'http://127.0.0.1:8000/ads/';
+                window.location.href = 'http://127.0.0.1:8000/ads/get_ads/1/';
                 alert('Обьявление измненено!');
             },
             error:function(xhr,errmsg,err) {
-            alert("Ошибка: " + xhr.responseText);
+                alert("Ошибка: " + xhr.responseText);
+            }
+        });
+    });
+    $(document).on('click', '#delete', function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'/ads/delete_ad/{{ad.id}}/',
+            data:{
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'post'
+            },
+            success:function(json){
+                window.location.href = 'http://127.0.0.1:8000/ads/get_ads/1/';
+                alert('Обьявление удалено!');
+            },
+            error:function(xhr,errmsg,err) {
+                alert("Ошибка: " + xhr.responseText);
             }
         });
     });

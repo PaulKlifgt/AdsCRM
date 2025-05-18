@@ -1,8 +1,7 @@
 {% extends 'ads/base.html' %}
 {% block content %}
-        <h1>Новое обьявление</h1>
+    <h1>Новое обьявление</h1>
     <hr>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <form onsubmit="event.target.onsubmit = (e) => e.preventDefault()" action="{% url 'create_ad' %}" id="send" method="post" autocomplete="off">
         {% csrf_token %}
         {{form.title.label}}: {{form.title}} <br>
@@ -26,11 +25,11 @@
                     action: 'post'
                 },
                 success:function(json){
-                    window.location.href = 'http://127.0.0.1:8000/ads/';
+                    window.location.href = 'http://127.0.0.1:8000/ads/get_ads/1/';
                     alert('Обьявление опубликовано!');
                 },
                 error:function(xhr,errmsg,err) {
-                alert("Ошибка: " + xhr.responseText);
+                    alert("Ошибка: " + xhr.responseText);
                 }
             });
         });

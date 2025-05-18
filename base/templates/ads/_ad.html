@@ -1,0 +1,27 @@
+<div style="border: 1px solid black; padding: 1vw; border-radius: 1vw;">
+    <h3 style="margin-bottom: 0;">{{ad.title}}</h3>
+    <h4 style="margin-top: 0;">{{ad.description}}</h4>
+    {% if ad.user != user %}
+        <button class="btn btn-primary" onclick="event.target.onsubmit = (e) => e.preventDefault()" id="send{{ad.id}}">Предложить обмен</button>
+    {% else %}
+        <a  href="/ads/edit_ad/{{ad.id}}/"><button class="btn btn-secondary">Редактировать объявление</button></a>
+    {% endif %}
+    
+</div> 
+
+<script>
+    $(document).on('click', '#send{{ad.id}}', function(e){
+    e.preventDefault();
+    $.ajax({
+        type:'GET',
+        url:'/ads/create_prop/{{ad.id}}/',
+        success:function(json){
+            window.location.href = 'http://127.0.0.1:8000/ads/create_prop/{{ad.id}}/';
+        },
+        error:function(xhr,errmsg,err) {
+            alert("Ошибка: " + xhr.responseText);
+        }
+        });
+    });
+</script>
+

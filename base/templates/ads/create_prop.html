@@ -2,7 +2,7 @@
 {% block content %}
     <h1>Предложение обмена</h1>
 <hr>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <form onsubmit="event.target.onsubmit = (e) => e.preventDefault()" action="{% url 'create_prop' ad_r_id=ad_r.id %}" id="send" method="post" autocomplete="off">
     {% csrf_token %}
     {{form.ad_sender.label}}: {{form.ad_sender}} <br>
@@ -22,11 +22,11 @@
                 action: 'post'
             },
             success:function(json){
-                window.location.href = 'http://127.0.0.1:8000/ads/';
-                alert('Обьявление опубликовано!');
+                window.location.href = 'http://127.0.0.1:8000/ads/get_ads/1/';
+                alert('Предложение отправлено!');
             },
             error:function(xhr,errmsg,err) {
-            alert("Ошибка: " + xhr.responseText);
+                alert("Ошибка: " + xhr.responseText);
             }
         });
     });

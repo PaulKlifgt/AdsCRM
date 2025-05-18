@@ -36,3 +36,4 @@ class CreateProposalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CreateProposalForm, self).__init__(*args, **kwargs)
         self.fields['comment'].required = False
+        self.fields['ad_sender'].label_from_instance = lambda obj: "%s" % (obj.title)

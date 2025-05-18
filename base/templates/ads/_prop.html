@@ -1,0 +1,39 @@
+<script>
+    $(document).on('click', '#accept{{prop.id}}', function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'/ads/accept_prop/{{prop.id}}/',
+            data:{
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'post'
+                },
+            success:function(json){
+                window.location.href = 'http://127.0.0.1:8000/ads/get_props/';
+                alert('Вы приняли предложение');
+            },
+            error:function(xhr,errmsg,err) {
+                alert("Ошибка: " + xhr.responseText);
+            }
+        });
+    });
+
+    $(document).on('click', '#reject{{prop.id}}', function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'/ads/reject_prop/{{prop.id}}/',
+            data:{
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'post'
+                },
+            success:function(json){
+                window.location.href = 'http://127.0.0.1:8000/ads/get_props/';
+                alert('Вы отклонили предложение');
+            },
+            error:function(xhr,errmsg,err) {
+                alert("Ошибка: " + xhr.responseText);
+            }
+        });
+    });
+</script>

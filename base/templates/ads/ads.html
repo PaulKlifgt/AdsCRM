@@ -1,10 +1,55 @@
-{% if ads %}
-    {% for ad in ads %}
-        <div>
-            <h3>{{ad}}</h3>
-        </div> 
-    {% endfor %}
-{% else %}
-    <h3>Объявлений нет!</h3>
-{% endif %}
-
+{% extends 'ads/base.html' %}
+{% block content %}
+    <a style="text-decoration: none; color: black;" href="/ads/create_ad/"><h3>➕ Добавить объявление</h3></a>
+    <hr>
+    <input type="text" id="key_word">
+    Категория <select name="" id="category">
+        <option value="">-</option>
+        <option value="вещи для дома">вещи для дома</option>
+        <option value="одежда">одежда</option>
+        <option value="транспорт">транспорт</option>
+    </select> 
+    Состояние <select name="" id="condition">
+        <option value="">-</option>
+        <option value="новый">новый</option>
+        <option value="б/у">б/у</option>
+    </select> 
+    <button class="btn btn-primary" id="send">Поиск</button>
+    <br>
+    <h3>Страница {{page_n}} {% if page_n > 1 %}
+        <a style="text-decoration: none;" href="" id="left">⬅️</a>
+        {% endif %} 
+        <a style="text-decoration: none;" href="" id="right">➡️</a> </h3>
+    <hr>
+    {% if ads %}
+        {% for ad in ads %}
+            {% include 'ads/_ad.html' %}
+            <br>
+        {% endfor %}
+    {% else %}
+        <h3>Объявления не найдены!</h3>
+    {% endif %}
+    <script>
+        $(document).on('click', '#send', function(e){
+            localStorage.setItem('key_word_value', $('#key_word').val());
+            localStorage.setItem('category_value', $('#category').val());
+            localStorage.setItem('condition_value', $('#condition').val());
+            window.location.href = 'http://127.0.0.1:8000/ads/get_ads/{{page_n}}/?category='+$('#category').val()+'&condition='+$('#condition').val()+'&key_word='+$('#key_word').val()
+        });
+        $(document).ready(function(){
+            if (localStorage.getItem('key_word_value')){
+                $('#key_word').val(localStorage.getItem('key_word_value'));
+            }
+            if (localStorage.getItem('category_value')){
+                $('#category').val(localStorage.getItem('category_value'));
+            }
+            if (localStorage.getItem('condition_value')){
+                $('#condition').val(localStorage.getItem('condition_value'));
+            }
+            let page_before = Number('{{page_n}}')-1;
+            let page_after = Number('{{page_n}}')+1;
+            $('#left').attr('href', ('http://127.0.0.1:8000/ads/get_ads/'+page_before+'/?category='+$('#category').val()+'&condition='+$('#condition').val()+'&key_word='+$('#key_word').val()));
+            $('#right').attr('href', ('http://127.0.0.1:8000/ads/get_ads/'+page_after+'/?category='+$('#category').val()+'&condition='+$('#condition').val()+'&key_word='+$('#key_word').val()));
+        });    
+    </script>
+{% endblock content %}
