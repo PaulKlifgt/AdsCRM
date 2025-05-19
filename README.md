@@ -39,3 +39,8 @@
 -  `/ads/accept_prop/<prop_id>/ ['PUT']` - принятие (подтверждение) предложения
 
 - `/ads/reject_prop/<prop_id>/ ['PUT']` - отклонение предложения
+
+
+## Тестирование
+
+- `python manage.py test` - для запуска тестов Ad/Proposal
