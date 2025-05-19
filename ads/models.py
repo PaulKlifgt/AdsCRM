@@ -5,7 +5,7 @@ from django.db import models
 from base.settings import MEDIA_ROOT
 from users.models import User
 
-# Create your models here.
+
 class Ad(models.Model):
     category_choices = {
         'вещи для дома': 'вещи для дома',
