@@ -2,12 +2,14 @@
     $(document).on('click', '#accept{{prop.id}}', function(e){
         e.preventDefault();
         $.ajax({
-            type:'POST',
+            method:'PUT',
             url:'/ads/accept_prop/{{prop.id}}/',
             data:{
-                csrfmiddlewaretoken: '{{csrf_token}}',
                 action: 'post'
                 },
+            headers: {
+                'X-CSRFToken': '{{csrf_token}}',
+            },
             success:function(json){
                 window.location.href = 'http://127.0.0.1:8000/ads/get_props/';
                 alert('Вы приняли предложение');
@@ -21,12 +23,14 @@
     $(document).on('click', '#reject{{prop.id}}', function(e){
         e.preventDefault();
         $.ajax({
-            type:'POST',
+            type:'PUT',
             url:'/ads/reject_prop/{{prop.id}}/',
             data:{
-                csrfmiddlewaretoken: '{{csrf_token}}',
                 action: 'post'
                 },
+            headers: {
+                'X-CSRFToken': '{{csrf_token}}',
+            },
             success:function(json){
                 window.location.href = 'http://127.0.0.1:8000/ads/get_props/';
                 alert('Вы отклонили предложение');

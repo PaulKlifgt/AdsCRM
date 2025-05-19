@@ -37,11 +37,13 @@
     $(document).on('click', '#delete', function(e){
         e.preventDefault();
         $.ajax({
-            type:'POST',
+            type:'DELETE',
             url:'/ads/delete_ad/{{ad.id}}/',
             data:{
-                csrfmiddlewaretoken: '{{csrf_token}}',
                 action: 'post'
+            },
+            headers: {
+                'X-CSRFToken': '{{csrf_token}}',
             },
             success:function(json){
                 window.location.href = 'http://127.0.0.1:8000/ads/get_ads/1/';

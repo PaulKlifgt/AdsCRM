@@ -27,7 +27,7 @@
 
 - `/ads/edit_ad/<ad_id>/ ['GET', 'POST']` - редактирование объявления
 
-- `/ads/delete_ad/<ad_id>/ ['POST']` - удаление объявления
+- `/ads/delete_ad/<ad_id>/ ['DELETE']` - удаление объявления
 
 
 ### Proposals
@@ -36,6 +36,6 @@
 
 - `/ads/create_prop/<ad_r_id>/ ['GET', 'POST']` - создание предложения (ad_r_id - id объявления-получателя предложения)
 
--  `/ads/accept_prop/<prop_id>/ ['POST']` - принятие (подтверждение) предложения
+-  `/ads/accept_prop/<prop_id>/ ['PUT']` - принятие (подтверждение) предложения
 
-- `/ads/reject_prop/<prop_id>/ ['POST']` - отклонение предложения
+- `/ads/reject_prop/<prop_id>/ ['PUT']` - отклонение предложения

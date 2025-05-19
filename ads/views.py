@@ -9,6 +9,7 @@ from users.models import User
 
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def create_ad(request):
     if request.method == 'POST':
         form = forms.CreateAdForm(request.POST)
@@ -26,6 +27,7 @@ def create_ad(request):
 
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def edit_ad(request, ad_id: int):
     ad = models.Ad.objects.filter(id=ad_id)
     if ad:
@@ -56,7 +58,7 @@ def edit_ad(request, ad_id: int):
 
 
 @login_required
-@require_http_methods(['POST'])
+@require_http_methods(['DELETE'])
 def delete_ad(request, ad_id: int):
     ad = models.Ad.objects.filter(id=ad_id)
     if ad:
@@ -132,7 +134,7 @@ def create_proposal(request, ad_r_id: int):
 
 
 @login_required
-@require_http_methods(['POST'])
+@require_http_methods(['PUT'])
 def accept_proposal(request, prop_id: int):
     prop = models.Proposal.objects.filter(id=prop_id)
     if prop:
@@ -148,7 +150,7 @@ def accept_proposal(request, prop_id: int):
 
 
 @login_required
-@require_http_methods(['POST'])
+@require_http_methods(['PUT'])
 def reject_proposal(request, prop_id: int):
     prop = models.Proposal.objects.filter(id=prop_id)
     if prop:
